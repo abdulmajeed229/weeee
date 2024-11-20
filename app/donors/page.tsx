@@ -17,20 +17,18 @@ interface Donor {
 }
 
 function Donors() {
-    const [donors, setDonors] = useState<any>([]);
+    const [donors, setDonors] = useState<Donor[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchDonors = async () => {
             const querySnapshot = await getDocs(collection(db, "userData"));
-            // const donorsData = [];
+            const donorsData: Donor[] = [];
             querySnapshot.forEach((doc) => {
-                  querySnapshot.forEach((doc) => {
                 donorsData.push({ id: doc.id, ...doc.data() } as Donor);
             });
             setDonors(donorsData);
             setLoading(false);
-        
         };
 
         fetchDonors();
@@ -77,9 +75,3 @@ function Donors() {
 }
 
 export default Donors;
-
-  // querySnapshot.forEach((doc) => {
-  //               donorsData.push({ id: doc.id, ...doc.data() } as Donor);
-  //           });
-  //           setDonors(donorsData);
-  //           setLoading(false);
