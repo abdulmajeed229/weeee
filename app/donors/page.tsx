@@ -25,10 +25,12 @@ function Donors() {
             const querySnapshot = await getDocs(collection(db, "userData"));
             // const donorsData = [];
             querySnapshot.forEach((doc) => {
-                
+                  querySnapshot.forEach((doc) => {
+                donorsData.push({ id: doc.id, ...doc.data() } as Donor);
             });
-            setDonors( {id: doc.id, ...doc.data()});
+            setDonors(donorsData);
             setLoading(false);
+        
         };
 
         fetchDonors();
