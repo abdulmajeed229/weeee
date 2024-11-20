@@ -17,28 +17,22 @@ interface Donor {
 }
 
 function Donors() {
-    // Use the type 'Donor[]' for the donors state
     const [donors, setDonors] = useState<Donor[]>([]);
-    const [loading, setLoading] = useState<boolean>(true); 
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchDonors = async () => {
-            try {
-                const querySnapshot = await getDocs(collection(db, "userData"));
-                const donorsData: Donor[] = []; // Explicitly type the array
-                querySnapshot.forEach((doc) => {
-                    donorsData.push({ id: doc.id, ...doc.data() } as Donor);
-                });
-                setDonors(donorsData);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching donors:", error);
-                setLoading(false);
-            }
+            const querySnapshot = await getDocs(collection(db, "userData"));
+            const donorsData: Donor[] = [];
+            querySnapshot.forEach((doc) => {
+                donorsData.push({ id: doc.id, ...doc.data() } as Donor);
+            });
+            setDonors(donorsData);
+            setLoading(false);
         };
 
         fetchDonors();
-    }, []); 
+    }, []);
 
     return (
         <div>
@@ -51,8 +45,15 @@ function Donors() {
                     </div>
                 ) : donors.length > 0 ? (
                     donors.map((donor) => (
-                        <div key={donor.id} className="mt-5 shadow-2xl p-4 border-b w-[280px] min-h-[350px] rounded-xl transform transition duration-800 hover:scale-105 cursor-pointer">
-                            <img src="https://cdn-icons-png.flaticon.com/512/219/219988.png" alt="user" className="h-[100px]" />
+                        <div
+                            key={donor.id}
+                            className="mt-5 shadow-2xl p-4 border-b w-[280px] min-h-[350px] rounded-xl transform transition duration-800 hover:scale-105 cursor-pointer"
+                        >
+                            <img
+                                src="https://cdn-icons-png.flaticon.com/512/219/219988.png"
+                                alt="user"
+                                className="h-[100px]"
+                            />
                             <br />
                             <div className="flex flex-col justify-center gap-2">
                                 <h1 className="text-[20px] font-medium font-serif">{donor.name}</h1>
