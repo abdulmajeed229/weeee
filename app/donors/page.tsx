@@ -17,13 +17,13 @@ interface Donor {
 }
 
 function Donors() {
-    const [donors, setDonors] = useState<Donor[]>([]);
+    const [donors, setDonors] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchDonors = async () => {
             const querySnapshot = await getDocs(collection(db, "userData"));
-            const donorsData: Donor[] = [];
+            const donorsData = [];
             querySnapshot.forEach((doc) => {
                 donorsData.push({ id: doc.id, ...doc.data() } as Donor);
             });
