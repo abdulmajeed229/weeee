@@ -25,7 +25,7 @@ function Donors() {
         const fetchDonors = async () => {
             try {
                 const querySnapshot = await getDocs(collection(db, "userData"));
-                const donorsData: Donor[] = [];
+                const donorsData: Donor[] = []; // Explicitly define the type as Donor[]
                 querySnapshot.forEach((doc) => {
                     donorsData.push({ id: doc.id, ...doc.data() } as Donor);
                 });
