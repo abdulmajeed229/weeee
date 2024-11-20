@@ -23,11 +23,11 @@ function Donors() {
     useEffect(() => {
         const fetchDonors = async () => {
             const querySnapshot = await getDocs(collection(db, "userData"));
-            const donorsData = [];
+            // const donorsData = [];
             querySnapshot.forEach((doc) => {
-                donorsData.push({ id: doc.id, ...doc.data() } as Donor);
+                
             });
-            setDonors(donorsData);
+            setDonors( {id: doc.id, ...doc.data()});
             setLoading(false);
         };
 
@@ -75,3 +75,9 @@ function Donors() {
 }
 
 export default Donors;
+
+  // querySnapshot.forEach((doc) => {
+  //               donorsData.push({ id: doc.id, ...doc.data() } as Donor);
+  //           });
+  //           setDonors(donorsData);
+  //           setLoading(false);
